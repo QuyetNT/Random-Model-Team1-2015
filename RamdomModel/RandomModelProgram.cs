@@ -181,8 +181,7 @@ namespace RamdomModel
             int nearlyNode;
             int matrixSize = mMatrix.GetLength(0);
 
-            // Thăm đỉnh
-            // Nếu thăm được đỉnh cần xác định -> đi được tới node đó -> Kết thúc thuật toán
+            // Lưu tồn tại đường đi giữa node bắt đầu và node đang xét
             mConnectedNodes[startNode, currentNode] = true;
 
             mUnvisited[currentNode] = false;
