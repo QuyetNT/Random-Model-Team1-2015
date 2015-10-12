@@ -30,13 +30,14 @@
         {
             this.SuspendLayout();
             // 
-            // Form1
+            // Frm_Draw_Drg_Status
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(745, 458);
-            this.Name = "Form1";
+            this.Name = "Frm_Draw_Drg_Status";
             this.Text = "Random Model - Team I";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Draw_Diagram_Status_Paint);
             this.ResumeLayout(false);
 

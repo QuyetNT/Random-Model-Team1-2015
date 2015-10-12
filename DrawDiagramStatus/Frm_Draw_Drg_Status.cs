@@ -14,7 +14,7 @@ namespace DrawDiagramStatus
     {
         #region Global Variables
         int numberStatus;
-        int[,] matrix;
+        double [,] matrix;
         string[] status;
 
         static class con
@@ -56,21 +56,22 @@ namespace DrawDiagramStatus
         private void initData()
         {
             numberStatus = 5;
-            matrix = new int[numberStatus, numberStatus];
+            matrix = new double[numberStatus, numberStatus];
             status = new string[numberStatus];
             Random rand = new Random();
             //init matrix
-            matrix = new int[5, 5]   {{0, 1, 0, 0, 1}
-                                    ,{1, 0, 0, 1, 0}
-                                    ,{1, 0, 0, 0, 1}
-                                    ,{0, 0, 1, 0, 1}
-                                    ,{0, 1, 0, 0, 1}};
+            matrix = new double[5, 5]   {{0, 0.1, 0, 0, 0.9}
+                                    ,{0.4, 0, 0, 0.6, 0}
+                                    ,{0.2, 0, 0, 0, 0.8}
+                                    ,{0, 0, 0.3, 0, 0.7}
+                                    ,{0, 0.1, 0.4, 0, .5}};
+
             ////random
             //for (int i = 0; i < numberStatus; i++)
             //{
             //    for (int j = 0; j < numberStatus; j++)
             //    {
-            //        matrix[i, j] = rand.Next(0,2);
+            //        matrix[i, j] = rand.Next(0, 11) * 0.1;
             //    }
             //}
 
@@ -93,7 +94,7 @@ namespace DrawDiagramStatus
             }
         }
 
-        private void CreateCurve(Graphics g, int numberStatus, int[,] matrix)
+        private void CreateCurve(Graphics g, int numberStatus, double[,] matrix)
         {
             SolidBrush myBrush = new SolidBrush(Color.Navy);
             Font myFont = new Font("Times New Roman", 9);
@@ -120,7 +121,7 @@ namespace DrawDiagramStatus
                                                                    , con.int_y_st + ((j - i) * con.int_distance_st / 2) / 2 + con.int_size_st + con.size_row)}
                         );
                         //Draw value on curve
-                        g.DrawString( matrix[i, j].ToString()
+                        g.DrawString( matrix[i, j].ToString("0.0")
                                     , myFont, myBrush
                                     , con.int_x_st + con.int_size_st / 2 + (j + i) * con.int_distance_st / 2 - con.size_row
                                     , con.int_y_st + ((j - i) * con.int_distance_st / 2) / 2 + con.int_size_st + con.size_row);
@@ -145,7 +146,7 @@ namespace DrawDiagramStatus
                                                                    ,  con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2 + con.size_row)}
                                     );
                         //Draw value on curve
-                        g.DrawString(matrix[i, j].ToString()
+                        g.DrawString(matrix[i, j].ToString("0.0")
                                     , myFont, myBrush
                                     , con.int_x_st + (j + i) * con.int_distance_st / 2 + con.int_size_st / 2 + con.size_row
                                     , con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2 - con.size_row*4);
@@ -170,7 +171,7 @@ namespace DrawDiagramStatus
                                                                    ,  con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2 - con.size_row + con.size_st/2) }
                                     );
                         //Draw value on curve
-                        g.DrawString(matrix[i, j].ToString()
+                        g.DrawString(matrix[i, j].ToString("0.0")
                                     , myFont, myBrush
                                     , con.int_x_st + j * con.int_distance_st - con.int_size_st*3/2 - 2
                                     , con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2);
