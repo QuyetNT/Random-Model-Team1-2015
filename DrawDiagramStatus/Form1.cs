@@ -71,7 +71,6 @@ namespace DrawDiagramStatus
                 status[i] = Convert.ToString(i + 1);
             }
         }
-
         private void CreatePointStatus(Graphics g, int numberStatus, string[] status)
         {
             SolidBrush myBrush = new SolidBrush(Color.Red);
@@ -92,7 +91,7 @@ namespace DrawDiagramStatus
                 for (int j = 0; j < numberStatus; j++)
                 {
                     // chiều từ i -> j
-                    if (matrix[i, j] == 1 && j > i)
+                    if (matrix[i, j] > 0 && j > i)
                     {
                         Rectangle rect = new Rectangle(con.int_x_st + i * con.int_distance_st + con.int_size_st / 2
                                                      , con.int_y_st - ((j - i) * con.int_distance_st / 2) / 2 + con.int_size_st
@@ -100,43 +99,47 @@ namespace DrawDiagramStatus
                                                      , (j - i) * con.int_distance_st / 2);
                         g.DrawArc(pn, rect, 0, 180);
                         //create rows
-                        //g.DrawLines(pn, new PointF[] {    new PointF(con.x_st + i*con.distance_st*3/2 - con.size_row + con.size_st/2
-                        //                                           , con.int_y_st - ((j - i) * con.int_distance_st) / 2 + con.int_size_st + con.size_row)
-                        //                                , new PointF(con.x_st + i*con.distance_st*3/2 + con.size_st/2
-                        //                                           ,con.int_y_st - ((j - i) * con.int_distance_st) / 2 + con.int_size_st + con.size_row) 
-                        //                                , new PointF(con.x_st + i*con.distance_st*3/2 + con.size_row + con.size_st/2
-                        //                                           ,con.int_y_st - ((j - i) * con.int_distance_st) / 2 + con.int_size_st + con.size_row)}
-                        //);
+                        g.DrawLines(pn, new PointF[] {    new PointF(con.int_x_st + con.int_size_st / 2 + (j + i) * con.int_distance_st/2 - con.size_row
+                                                                   , con.int_y_st + ((j - i) * con.int_distance_st / 2) / 2 + con.int_size_st - con.size_row)
+                                                        , new PointF(con.int_x_st + con.int_size_st / 2 + (j + i) * con.int_distance_st/2
+                                                                   , con.int_y_st + ((j - i) * con.int_distance_st / 2) / 2 + con.int_size_st) 
+                                                        , new PointF(con.int_x_st + con.int_size_st / 2 + (j + i) * con.int_distance_st/2 - con.size_row
+                                                                   , con.int_y_st + ((j - i) * con.int_distance_st / 2) / 2 + con.int_size_st + con.size_row)}
+                        );
                     }
 
                     // chiều j -> i
-                    if (matrix[i, j] == 1 && j < i)
+                    if (matrix[i, j] > 0 && j < i)
                     {
                         Rectangle rect = new Rectangle(con.int_x_st + j * con.int_distance_st + con.int_size_st / 2
                                                      , con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2
                                                      , (i - j) * con.int_distance_st
                                                      , (i - j) * con.int_distance_st / 2);
                         g.DrawArc(pn, rect, 0, -180);
-                        //g.DrawLines(pn, new PointF[] {    new PointF(con.x_st + (i-j)*con.distance_st - con.size_row + con.size_st/2
-                        //                                           , con.y_st + con.size_st + con.size_row)
-                        //                                , new PointF(con.x_st + (i-j)*con.distance_st + con.size_st/2
-                        //                                           , con.y_st + con.size_st) 
-                        //                                , new PointF(con.x_st + (i-j)*con.distance_st + con.size_row + con.size_st/2
-                        //                                           , con.y_st + con.size_st + con.size_row)}
-                        //             );
+                        //create rows
+                        g.DrawLines(pn, new PointF[] {    new PointF(con.int_x_st + (j + i) * con.int_distance_st/2 + con.int_size_st / 2 + con.size_row 
+                                                                   ,  con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2 - con.size_row)
+                                                        , new PointF(con.int_x_st + (j + i) * con.int_distance_st/2 + con.int_size_st / 2
+                                                                   ,  con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2) 
+                                                        , new PointF(con.int_x_st + (j + i) * con.int_distance_st/2 + con.int_size_st / 2 + con.size_row
+                                                                   ,  con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2 + con.size_row)}
+                                     );
                     }
                     // i = j
-                    if (matrix[i, j] == 1 && j == i)
+                    if (matrix[i, j] > 0 && j == i)
                     {
                         Rectangle rect = new Rectangle(con.int_x_st + j * con.int_distance_st - con.int_size_st
                                                      , con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2
                                                      , con.int_size_st * 3 / 2
                                                      , con.int_size_st);
-                        //g.DrawRectangle(pn, con.int_x_st + j * con.int_distance_st + con.int_size_st 
-                        //                             , con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2
-                        //                             , con.int_size_st
-                        //                             , con.int_size_st);
                         g.DrawArc(pn, rect, 35, 280);
+                        //create rows
+                        g.DrawLines(pn, new PointF[] {    new PointF(con.int_x_st + j * con.int_distance_st - con.int_size_st - con.size_row + 1
+                                                                   ,  con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2 - con.size_row + con.size_st/2)
+                                                        , new PointF(con.int_x_st + j * con.int_distance_st - con.int_size_st 
+                                                                   ,  con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2 + con.size_st/2) 
+                                                        , new PointF(con.int_x_st + j * con.int_distance_st - con.int_size_st + con.size_row +3 
+                                                                   ,  con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2 - con.size_row + con.size_st/2) });
                     }
 
                 }
