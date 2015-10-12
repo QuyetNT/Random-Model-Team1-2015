@@ -36,20 +36,23 @@ namespace DrawDiagramStatus
 
         #endregion
 
+        #region Public Method
         public Frm_Draw_Drg_Status()
         {
             InitializeComponent();
         }
+        #endregion
 
-        
+        #region Private Method
         private void Draw_Diagram_Status_Paint(object sender,
-           System.Windows.Forms.PaintEventArgs pe)
+                                               System.Windows.Forms.PaintEventArgs pe)
         {
             initData();
             Graphics g = pe.Graphics;
             CreatePointStatus(g, numberStatus, status);
             CreateCurve(g, numberStatus, matrix);
         }
+
         private void initData()
         {
             numberStatus = 5;
@@ -77,6 +80,7 @@ namespace DrawDiagramStatus
                 status[i] = Convert.ToString(i + 1);
             }
         }
+
         private void CreatePointStatus(Graphics g, int numberStatus, string[] status)
         {
             SolidBrush myBrush = new SolidBrush(Color.Red);
@@ -88,6 +92,7 @@ namespace DrawDiagramStatus
                 g.DrawString(status[i], myFont, myBrush, (con.x_st + 6 + i * con.distance_st), con.y_st + 5);
             }
         }
+
         private void CreateCurve(Graphics g, int numberStatus, int[,] matrix)
         {
             Font myFont = new Font("Times New Roman", 11);
@@ -154,5 +159,6 @@ namespace DrawDiagramStatus
                 }
             }
         }
+        #endregion
     }
 }
