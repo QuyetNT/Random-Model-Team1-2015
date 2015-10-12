@@ -10,16 +10,13 @@ using System.Windows.Forms;
 
 namespace DrawDiagramStatus
 {
-    public partial class Form1 : Form
+    public partial class Frm_Draw_Drg_Status : Form
     {
+        #region Global Variables
         int numberStatus;
         int[,] matrix;
         string[] status;
 
-        public Form1()
-        {
-            InitializeComponent();
-        }
         static class con
         {
             //float
@@ -36,7 +33,16 @@ namespace DrawDiagramStatus
             public const int int_y_st = 200;
             public const int int_distance_st = 100;
         }
-        private void Form1_Paint(object sender,
+
+        #endregion
+
+        public Frm_Draw_Drg_Status()
+        {
+            InitializeComponent();
+        }
+
+        
+        private void Draw_Diagram_Status_Paint(object sender,
            System.Windows.Forms.PaintEventArgs pe)
         {
             initData();
@@ -90,7 +96,7 @@ namespace DrawDiagramStatus
             {
                 for (int j = 0; j < numberStatus; j++)
                 {
-                    // chiều từ i -> j
+                    #region curve bottom
                     if (matrix[i, j] > 0 && j > i)
                     {
                         Rectangle rect = new Rectangle(con.int_x_st + i * con.int_distance_st + con.int_size_st / 2
@@ -107,8 +113,9 @@ namespace DrawDiagramStatus
                                                                    , con.int_y_st + ((j - i) * con.int_distance_st / 2) / 2 + con.int_size_st + con.size_row)}
                         );
                     }
-
-                    // chiều j -> i
+                    #endregion
+ 
+                    #region curve top
                     if (matrix[i, j] > 0 && j < i)
                     {
                         Rectangle rect = new Rectangle(con.int_x_st + j * con.int_distance_st + con.int_size_st / 2
@@ -125,7 +132,9 @@ namespace DrawDiagramStatus
                                                                    ,  con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2 + con.size_row)}
                                      );
                     }
-                    // i = j
+                    #endregion
+    
+                    #region curve itself
                     if (matrix[i, j] > 0 && j == i)
                     {
                         Rectangle rect = new Rectangle(con.int_x_st + j * con.int_distance_st - con.int_size_st
@@ -141,7 +150,7 @@ namespace DrawDiagramStatus
                                                         , new PointF(con.int_x_st + j * con.int_distance_st - con.int_size_st + con.size_row +3 
                                                                    ,  con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2 - con.size_row + con.size_st/2) });
                     }
-
+                    #endregion
                 }
             }
         }

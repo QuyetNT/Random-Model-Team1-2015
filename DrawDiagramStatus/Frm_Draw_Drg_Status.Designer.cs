@@ -1,6 +1,6 @@
 ﻿namespace DrawDiagramStatus
 {
-    partial class Form1
+    partial class Frm_Draw_Drg_Status
     {
         /// <summary>
         /// Required designer variable.
@@ -37,7 +37,7 @@
             this.ClientSize = new System.Drawing.Size(745, 458);
             this.Name = "Form1";
             this.Text = "Random Model - Team I";
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Draw_Diagram_Status_Paint);
             this.ResumeLayout(false);
 
         }
