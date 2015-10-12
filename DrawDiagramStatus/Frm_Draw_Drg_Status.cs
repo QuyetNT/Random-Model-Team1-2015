@@ -95,7 +95,8 @@ namespace DrawDiagramStatus
 
         private void CreateCurve(Graphics g, int numberStatus, int[,] matrix)
         {
-            Font myFont = new Font("Times New Roman", 11);
+            SolidBrush myBrush = new SolidBrush(Color.Navy);
+            Font myFont = new Font("Times New Roman", 9);
             Pen pn = new Pen(Color.Green, 1);
             for (int i = 0; i < numberStatus; i++)
             {
@@ -104,12 +105,13 @@ namespace DrawDiagramStatus
                     #region curve bottom
                     if (matrix[i, j] > 0 && j > i)
                     {
+                        //Draw Curve
                         Rectangle rect = new Rectangle(con.int_x_st + i * con.int_distance_st + con.int_size_st / 2
                                                      , con.int_y_st - ((j - i) * con.int_distance_st / 2) / 2 + con.int_size_st
                                                      , (j - i) * con.int_distance_st
                                                      , (j - i) * con.int_distance_st / 2);
                         g.DrawArc(pn, rect, 0, 180);
-                        //create rows
+                        //Draw rows
                         g.DrawLines(pn, new PointF[] {    new PointF(con.int_x_st + con.int_size_st / 2 + (j + i) * con.int_distance_st/2 - con.size_row
                                                                    , con.int_y_st + ((j - i) * con.int_distance_st / 2) / 2 + con.int_size_st - con.size_row)
                                                         , new PointF(con.int_x_st + con.int_size_st / 2 + (j + i) * con.int_distance_st/2
@@ -117,43 +119,61 @@ namespace DrawDiagramStatus
                                                         , new PointF(con.int_x_st + con.int_size_st / 2 + (j + i) * con.int_distance_st/2 - con.size_row
                                                                    , con.int_y_st + ((j - i) * con.int_distance_st / 2) / 2 + con.int_size_st + con.size_row)}
                         );
+                        //Draw value on curve
+                        g.DrawString( matrix[i, j].ToString()
+                                    , myFont, myBrush
+                                    , con.int_x_st + con.int_size_st / 2 + (j + i) * con.int_distance_st / 2 - con.size_row
+                                    , con.int_y_st + ((j - i) * con.int_distance_st / 2) / 2 + con.int_size_st + con.size_row);
                     }
                     #endregion
  
                     #region curve top
                     if (matrix[i, j] > 0 && j < i)
                     {
+                        //Draw curves
                         Rectangle rect = new Rectangle(con.int_x_st + j * con.int_distance_st + con.int_size_st / 2
                                                      , con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2
                                                      , (i - j) * con.int_distance_st
                                                      , (i - j) * con.int_distance_st / 2);
                         g.DrawArc(pn, rect, 0, -180);
-                        //create rows
+                        //Draw rows
                         g.DrawLines(pn, new PointF[] {    new PointF(con.int_x_st + (j + i) * con.int_distance_st/2 + con.int_size_st / 2 + con.size_row 
                                                                    ,  con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2 - con.size_row)
                                                         , new PointF(con.int_x_st + (j + i) * con.int_distance_st/2 + con.int_size_st / 2
                                                                    ,  con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2) 
                                                         , new PointF(con.int_x_st + (j + i) * con.int_distance_st/2 + con.int_size_st / 2 + con.size_row
                                                                    ,  con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2 + con.size_row)}
-                                     );
+                                    );
+                        //Draw value on curve
+                        g.DrawString(matrix[i, j].ToString()
+                                    , myFont, myBrush
+                                    , con.int_x_st + (j + i) * con.int_distance_st / 2 + con.int_size_st / 2 + con.size_row
+                                    , con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2 - con.size_row*4);
                     }
                     #endregion
     
                     #region curve itself
                     if (matrix[i, j] > 0 && j == i)
                     {
+                        //Draw curves
                         Rectangle rect = new Rectangle(con.int_x_st + j * con.int_distance_st - con.int_size_st
                                                      , con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2
                                                      , con.int_size_st * 3 / 2
                                                      , con.int_size_st);
                         g.DrawArc(pn, rect, 35, 280);
-                        //create rows
+                        //Draw rows
                         g.DrawLines(pn, new PointF[] {    new PointF(con.int_x_st + j * con.int_distance_st - con.int_size_st - con.size_row + 1
                                                                    ,  con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2 - con.size_row + con.size_st/2)
                                                         , new PointF(con.int_x_st + j * con.int_distance_st - con.int_size_st 
                                                                    ,  con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2 + con.size_st/2) 
                                                         , new PointF(con.int_x_st + j * con.int_distance_st - con.int_size_st + con.size_row +3 
-                                                                   ,  con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2 - con.size_row + con.size_st/2) });
+                                                                   ,  con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2 - con.size_row + con.size_st/2) }
+                                    );
+                        //Draw value on curve
+                        g.DrawString(matrix[i, j].ToString()
+                                    , myFont, myBrush
+                                    , con.int_x_st + j * con.int_distance_st - con.int_size_st*3/2 - 2
+                                    , con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2);
                     }
                     #endregion
                 }
