@@ -25,15 +25,19 @@ namespace RamdomModel
             //PrintMatrix(mMatrix);
 
             TestValue();
+            int node;
 
             Console.WriteLine("Kiem tra ma tran chuyen: " + IsTransitionMatrix(mMatrix));
 
 
             checkConnectionBetweenNodes();            
             PrintMatrix(mConnectedNodes);
-
+            
             Console.WriteLine("Kiem tra lien thong giua node 1 va 2: " + IsConnected(0, 1));
-
+            DSStateType(mMatrix);
+            Console.WriteLine("Nhap vao trang thai kiem tra tinh hoi quy");
+            node = Convert.ToInt32(Console.ReadLine());
+            TinhHoiQuy(node,mMatrix);
             Console.WriteLine("Ket thuc chuong trinh");
             Console.ReadKey();
         }
@@ -99,6 +103,15 @@ namespace RamdomModel
                 Console.Write(Environment.NewLine);
             }
             Console.Write(Environment.NewLine);
+        }
+
+        private void PrintList(List<int> ds)
+        {
+            foreach (int item in ds)
+            {
+                Console.Write(string.Format(" {0} ",item));
+            }
+            Console.WriteLine();
         }
 
         private void PrintMatrix(bool[,] matrix)
@@ -189,6 +202,41 @@ namespace RamdomModel
             {
                 if (mMatrix[currentNode, nearlyNode] > 0 && mUnvisited[nearlyNode])
                     DFS(nearlyNode, startNode);                
+            }
+        }
+
+        private void DSStateType(double[,] matrix)
+        {
+            List<int> list;
+            Console.WriteLine("danh sach cac loai trang thai la: ");
+            for (int a = 0; a < matrix.GetLength(0); a++)
+            {
+                list = new List<int>();
+                list.Add(a);
+                for (int b = 0; b < matrix.GetLength(1); b++)
+                {
+                    if (IsConnected(a, b) == true && a!=b)
+                    {
+                        list.Add(b);
+                    }
+                }
+
+                PrintList(list);
+            }
+        }
+
+        private void TinhHoiQuy(int p,double[,] inputMatrix)
+        {
+            for (int i = 0; i < inputMatrix.GetLength(0); i++)
+            {
+                if (IsConnected(p, i) == false)
+                {
+                    Console.WriteLine("Nut {0} la trang thai chuyen", p);
+                }
+                else
+                {
+                    Console.WriteLine("Nut {0} la trang thai hoi quy",p);
+                }
             }
         }
     }
