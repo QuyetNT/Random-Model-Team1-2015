@@ -16,7 +16,7 @@ namespace DrawDiagramStatus
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Frm_Draw_Drg_Status());
+            Application.Run(new Frm_Main());
         }
     }
 }

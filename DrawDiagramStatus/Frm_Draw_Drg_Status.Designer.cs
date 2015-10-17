@@ -36,8 +36,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(745, 458);
             this.Name = "Frm_Draw_Drg_Status";
-            this.Text = "Random Model - Team I";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Text = "Random Model - Team I - Sơ đồ các trạng thái";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Draw_Diagram_Status_Paint);
             this.ResumeLayout(false);
 

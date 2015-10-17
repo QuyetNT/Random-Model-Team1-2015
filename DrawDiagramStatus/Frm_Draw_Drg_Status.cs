@@ -14,7 +14,7 @@ namespace DrawDiagramStatus
     {
         #region Global Variables
         int numberStatus;
-        double [,] matrix;
+        double [,] mMatrix;
         string[] status;
 
         static class con
@@ -37,9 +37,10 @@ namespace DrawDiagramStatus
         #endregion
 
         #region Public Method
-        public Frm_Draw_Drg_Status()
+        public Frm_Draw_Drg_Status(double[,] matrix)
         {
             InitializeComponent();
+            initData(matrix);
         }
         #endregion
 
@@ -47,34 +48,18 @@ namespace DrawDiagramStatus
         private void Draw_Diagram_Status_Paint(object sender,
                                                System.Windows.Forms.PaintEventArgs pe)
         {
-            initData();
             Graphics g = pe.Graphics;
             CreatePointStatus(g, numberStatus, status);
-            CreateCurve(g, numberStatus, matrix);
+            CreateCurve(g, numberStatus, mMatrix);
         }
 
-        private void initData()
+        private void initData(double[,] matrix)
         {
-            numberStatus = 5;
-            matrix = new double[numberStatus, numberStatus];
+            numberStatus = matrix.GetLength(0);
+            mMatrix = new double[numberStatus, numberStatus];
+            mMatrix = matrix;
             status = new string[numberStatus];
             Random rand = new Random();
-            //init matrix
-            matrix = new double[5, 5]   {{0, 0.1, 0, 0, 0.9}
-                                    ,{0.4, 0, 0, 0.6, 0}
-                                    ,{0.2, 0, 0, 0, 0.8}
-                                    ,{0, 0, 0.3, 0, 0.7}
-                                    ,{0, 0.1, 0.4, 0, .5}};
-
-            ////random
-            //for (int i = 0; i < numberStatus; i++)
-            //{
-            //    for (int j = 0; j < numberStatus; j++)
-            //    {
-            //        matrix[i, j] = rand.Next(0, 11) * 0.1;
-            //    }
-            //}
-
             //init status
             for (int i = 0; i < numberStatus; i++)
             {
@@ -173,7 +158,7 @@ namespace DrawDiagramStatus
                         //Draw value on curve
                         g.DrawString(matrix[i, j].ToString("0.0")
                                     , myFont, myBrush
-                                    , con.int_x_st + j * con.int_distance_st - con.int_size_st*3/2 - 2
+                                    , con.int_x_st + j * con.int_distance_st - con.int_size_st*3/2 - 12
                                     , con.int_y_st - ((i - j) * con.int_distance_st / 2) / 2);
                     }
                     #endregion
