@@ -63,7 +63,7 @@ namespace DrawDiagramStatus
             //init status
             for (int i = 0; i < numberStatus; i++)
             {
-                status[i] = Convert.ToString(i + 1);
+                status[i] = Convert.ToString(i);
             }
         }
 

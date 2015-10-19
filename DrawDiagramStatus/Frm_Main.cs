@@ -145,7 +145,8 @@ namespace DrawDiagramStatus
 
         private void m_btn_hoi_quy_Click(object sender, EventArgs e)
         {
-
+            m_lbl_message.ForeColor = Color.Green;
+            m_lbl_message.Text = "Kiểm tra tính hồi quy: \n"+ mRandomModelProgram.DsPhanLoaiTrangThai(mRandomModelProgram.mMatrix);
         }
     }
 }

@@ -247,5 +247,53 @@ namespace DrawDiagramStatus
             }
             return result;
         }
+
+        //Dau vao la mot ma tran
+        //Da phan lop cac trang thai
+        //Co tinh lien thong
+
+        //thuat toan:
+        /// <summary>
+        /// xuat phan tu mot node trong list do.
+        /// ton tai phan tu ma khong lien thong voi cac nut con lai
+        /// </summary>
+        /// <param name="checkList"></param>
+        /// <returns></returns>
+        /// 
+        //ham nay dung de tra ve tu mot trang thai co toi tat ca trang thai con lai hay khong
+        /// <summary>
+        ///dung de lam gi?
+        ///dung de kiem tra xem trang thai do la trang thai hoi quy hay khong
+        /// </summary>
+        /// <param name="checkList"></param>
+        /// <returns></returns>
+
+        public bool IsNodeReturn(int p, double[,] inputmatrix)
+        {
+            for (int i = 0; i < inputmatrix.GetLength(0); i++)
+            {
+                if (mConnectedNodes[i, p] == false)
+                    return false;
+            }
+            return true;
+        }
+
+        public string DsPhanLoaiTrangThai(double[,] inputMatrix)
+        {
+
+            string result = "";
+            List<int> dsTrangThaiHoiQuy=new List<int>();
+            List<int> dsTrangThaiKoHoiQuy=new List<int>();
+            for (int i = 0; i < inputMatrix.GetLength(0); i++)
+            {
+                if (IsNodeReturn(i, inputMatrix) == true)
+                    dsTrangThaiHoiQuy.Add(i);
+                else
+                    dsTrangThaiKoHoiQuy.Add(i);
+            }
+            result += "Danh sách trạng thái hồi quy: " + PrintList(dsTrangThaiHoiQuy) +"\n" +
+                        "Danh sách trạng thái không hồi quy: " + PrintList(dsTrangThaiKoHoiQuy);
+                return result;
+        }
     }
 }
