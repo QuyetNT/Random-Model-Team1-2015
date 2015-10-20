@@ -1,0 +1,186 @@
+\chapter{Mô phỏng bài toán}
+\thispagestyle{empty}
+
+\section{Các bài toán đặt ra}
+	\begin{enumerate}
+  		\item Nhập ma trận xác suất chuyển cỡ n x n
+  		\item Kiểm tra ma trận xác suất chuyển đúng hay chưa?
+  		\item Vẽ sơ đồ các trạng thái.
+  		\item Xét tính liên thông của hai trạng thái i, j nhập từ bàn phím.
+		\item Phân lớp các trạng thái theo tính liên thông.
+		\item Xét tính hồi quy của các trạng thái.
+	\end{enumerate}
+
+
+
+
+
+
+
+\section{Giải thuật - Nhập ma trận xác suất chuyển cỡ n x n}
+	\begin{enumerate}
+  		\item Input \\
+  			Đoạn text ma trận vuông
+  		\item Output \\
+  			Ma trận vuông
+	\end{enumerate}
+
+
+
+
+
+
+\section{Giải thuật - Kiểm tra ma trận xác suất chuyển}
+	\begin{enumerate}
+  		\item Input \\
+  			Ma trận
+  		\item Output \\
+  			Có là ma trận chuyển hay không?
+  		\item Ý tưởng giải thuật \\
+  			Với từng hàng trên ma trận, kiếm tra từng phần tử có lớn hơn bằng 0 và nhỏ hơn bằng 1 hay không, 				tính tổng hàng xem có bằng 1 hay không?
+  		\item Mã giả
+  			\begin{lstlisting}
+  		function kiem_tra_ma_tran_chuyen() : boolean
+			var tong : integer
+			begin	
+				for moi hang tren ma tran then
+					tong := 0
+					for moi phan tu tren hang then
+						if gia tri < 0 or > 1 then
+							return false
+						end
+						tong += gia tri
+					end
+					if tong <> 1 then
+						return false
+				end
+			end
+			return true;
+		end
+  			\end{lstlisting}	
+	\end{enumerate}
+
+
+
+\section{Giải thuật - Vẽ sơ đồ các trạng thái}
+	Phần vẽ sơ đồ được minh họa bằng chương trình.
+
+
+
+\section{Giải thuật - Xét tính liên thông của hai trạng thái}
+	\begin{enumerate}
+  		\item Input \\
+  			Hai 2 trạng thái cần kiểm tra, ma trận chuyển
+  		\item Output \\
+  			Có liên thông hay không
+  		\item Ý tưởng giải thuật \\
+  			Sử dụng thuật toán duyệt theo chiều sâu để thiết lập ma trận tồn tại đường đi từ trạng thái này 				sang trạng thái kia.
+			Bắt đầu duyệt với mỗi trạng thái, tìm các trạng thái khác mà trạng thái hiện tại có thể đi tới, 				đánh dấu các trạng thái đã đi qua, lần lượt cho tới khi duyệt hết các trường hợp
+			Sau khi thiết lập xong ma trận thì kiểm tra tồn tại đường đi từ trạng thái này sang trạng thái 					kia và ngược lại, nếu tồn tại thì chúng liên thông.
+  		\item Mã giả \\
+			ma\_tran\_duong\_di  : Lưu có tồn tại đường đi từ trạng thái này sang trạng thái khác hay không \\  
+  			trang\_thai\_chua\_tham : Lưu trạng thái các đỉnh xem đã ghé thăm hay chưa	
+  			\begin{lstlisting}
+  function kiem_tra_tinh_lien_thong(a : integer, b : integer) : boolean
+	ma_tran_chuyen : double[][]
+	ma_tran_duong_di : boolean[][]
+	trang_thai_chua_tham : boolean[]
+	begin
+		Khoi tao gia tri ban dau cua ma_tran_duong_di = false;
+		for i from 0 to kich_thuoc_ma_tran then
+			Set tat ca gia tri dinh_chua_toi = true;
+			DFS(i, i);
+		end	
+	end
+end
+  			\end{lstlisting}
+  			
+  		trang\_thai\_hien\_tai: Trạng thái hiện tại đang kiểm tra đường đi tới các trạng thái khác \\
+		trang\_thai\_bat\_dau: Trạng thái gốc, bắt đầu duyệt \\
+		trang\_thai\_ke: Vị trí của trạng thái kề với nó \\
+		\begin{lstlisting}
+function DFS(trang_thai_hien_tai : integer, trang_thai_bat_dau : integer)
+	var trang_thai_ke : integer
+	begin
+		ma_tran_duong_di[trang_thai_bat_dau, trang_thai_hien_tai] = true;
+		trang_thai_chua_tham[trang_thai_hien_tai] = false;
+		for trang_thai_ke from 0 to kich_thuoc_ma_tran then
+			if ma_tran_chuyen[trang_thai_hien_tai, trang_thai_ke] > 0		 													and trang_thai_chua_tham[trang_thai_ke] = false then
+				DFS(trang_thai_ke, trang_thai_bat_dau)
+			end
+		end
+	end
+		\end{lstlisting}
+	\end{enumerate}
+
+
+
+\section{Giải thuật - Phân lớp các trạng thái theo tính liên thông}
+	\begin{enumerate}
+  		\item Input \\
+  			Ma trận xác xuất chuyển
+  		\item Output \\
+  			Các lớp trạng thái
+  		\item Ý tưởng giải thuật \\
+  			Bước 1: Duyệt trong tập các trạng thái \\
+			Bước 2: Kiểm tra tính liên thông  \\
+ 			Nếu các trạng thái liên thông với nhau thì nhóm chúng vào một lớp 
+  		\item Mã giả
+  			\begin{lstlisting}
+Buoc 1: Khoi tao ListDuocduyet
+Buoc 2: for I = 0 : n-1
+Khoi tao NewList
+	If( So luong phan tu trong ListDuocDuyet =0)
+	thi
+Them phan tu thu i vao
+		Them phan tu thu i vao ListDuocDuyet
+		For j = 0 : n-1
+			If( i , j lien thong)
+				Them vao ListDuocDuyet phan tu j
+				Them vao NewList phan tu j
+	Else (so luong phan tu trong ListDuocDuyet >0)
+		Neu i thuoc ListDuocDuyet thi khong xet nua
+		Neu i khong thuoc trong ListDuocDuyet
+			Them i vao NewList
+			Them I vao ListDuocDuyet 
+			For j = 0 : n-1
+			If( i , j lien thong)
+				Them vao ListDuocDuyet phan tu j
+				Them vao NewList phan tu j
+		In ra NewList
+String += In ra newList
+  			\end{lstlisting}
+	\end{enumerate}
+
+
+
+\section{Giải thuật - Xét tính hồi quy của các trạng thái}
+	\begin{enumerate}
+  		\item Input \\
+  			Các list trạng thái đã được phân lớp
+  		\item Output \\
+  			Danh sách trạng thái hồi quy và trạng thái không hồi quy
+  		\item Ý tưởng giải thuật 
+  			\begin{enumerate}
+  				\item Dựa vào các định lý của hồi quy: mọi lớp đóng gồm hữu hạn các phần tử đều hồi quy. Ta xét từng lớp. 								Nếu lớp đó đóng thì các phần tử trong lớp hồi quy ngược lại là trans.
+				\item Một lớp là đóng nếu không có đường đi nào từ phần tử khác vào các phần tử thuộc lớp đó. 
+				\item Do ta đã phân lớp các trạng thái nên thuật toán để kiểm tra như sau: duyệt qua các phần tử trong một 						lớp. Nếu bất kì phần tử nào trong lớp có đường đi đến phần tử khác ngoài lớp thì lớp đó không đóng. Vì vậy 						mà các phần tử của lớp không hồi quy. Ngược lại nếu tất cả các phần tử có lớp không có đường đi ra ngoài thì 				lớp đó là đóng. Và các phần tử của lớp hồi quy.
+
+  			\end{enumerate}
+  		\item Mã giả
+  			\begin{lstlisting}
+Function:  xet_tinh_hoi_quy
+Input:  list<int> lst_lop danh sach cac trang thai trong mot lop
+	Int[,] mMatrix ma tran chuyen
+Buoc 1: Khoi tao mot danh sach bao gom tat ca cac trang thai
+Buoc 2: Khoi tao mot danh sach cac trang thai con lai khong chua cac trang thai trong list dau vao
+Buoc 3: Voi moi p trong list trang thai dau vao
+		Voi moi k trong list trang thai con lai
+			If(ton tai duong di tu p -> k)
+				Return false;
+	Return true;
+Output: true or false
+	(Voi true - Hoi quy, false - khong hoi quy)
+
+  			\end{lstlisting}
+	\end{enumerate}

@@ -1,0 +1,302 @@
+
+\chapter{Kiến thức cơ sở}
+\thispagestyle{empty}
+% ------------------------------Mô tả nội dung của chương-----------
+
+% ------------------------------Xích Markov------------------------------
+\section{Xích markov}
+% ------------------------------Định nghĩa trạng thái, không gian các trạng thái
+\dn Giả sử I là một tập có lực lượng không quá đếm được. Mỗi phần tử $i\in I$ được gọi là một trạng thái và I được gọi là không gian trạng thái. Ta nói rằng $\lambda = (\lambda_i)_{i \in I}$ là một độ đo trên I nếu $0 \leq \lambda_i  < \infty , \forall \lambda \in I$. Nếu $\sum_{\substack{i \in I}} {\lambda_i } = 1$ , ta gọi $\lambda$ là một phân phối.
+
+Giả sử $(\Omega , \Im , P)$ là một không gian xác suất. Mỗi biến ngẫu nhiên X nhận giá trị trên I là một ánh xạ X: $\Omega \to I$. Nếu ta đặt
+\begin{center}
+$\lambda_i = P(X = i) = P(\{\omega: X(\omega) = i\})$
+\end{center}
+thì $\lambda = (\lambda_i)_{i \in I}$ là một phân phối và tra nói rằng X có phân phối $\lambda$. Nói cách khác, bnn X sẽ ở trạng thái i với xác suất $\lambda_i$.\\
+Ta nói ma trận $P = (p_{ij})_i,j \in I$ là ngẫu nhiên nếu mỗi hàn của nó đều là một phân phối, tức là
+\begin{center}
+$p_{ij} \geq 0, \forall i, j \in I, và \sum_{\substack{j \in I}}{p_{ij}} = 1, \forall i \in I$
+\end{center}
+\hdn
+% ------------------------------Định nghĩa xích Markov
+\dn Dãy bnn($X_n$) được gọi là một xích Markov với phân phối ban đầu $\lambda$ và ma trận chuyển P nếu
+\begin{enumerate}[i)]
+\item\label{dk1} $X_0$ có phân phối $\lambda$, tức là
+\begin{center}
+$P(X_0 = i) = \lambda_i , \forall i \in I$
+\end{center}
+\item\label{dk2}Với mọi $n\geq 0$, phân phối của $X_{n+1}$ với điều kiện $X_n = i_n$ là $(p_{i_n j})_{j \in I}$ và độc lập với $X_0,...,X_{n-1}$, tức là\\
+$P(X_{n+1}=i_{n+1}\mid X_0=i_0, ..., X_n = i_n) =P(X_{n+1} = i_{n+1} \mid X_n = i_n) \\=p_{i_n i_{n+1}}$ với mọi $n \geq 0$ và $i_0, ..., i_{n+1} \in I.$
+\end{enumerate}
+Với mỗi $n \geq 0, X_n$ đươc gọi là trạng thái của xích Markov tại thời điểm thứ n.
+
+Như vậy xích Markov $(X_n)_{n\geq0}$ được xác định nếu ta biết phân phối ban đầu $\lambda$ và ma trận chuyển P. Ta sẽ gọi $(X_n)_{n\geq 0}$ là Markov $(\lambda, P)$. Nếu $(X_n)_{0 \leq n \leq N}$ là một dãy hữu hạn các bnn thỏa mãn $\eqref{dk1}$ và $\eqref{dk2}$ với $n = 0,..., N-1$ thì ta cũng gọi $(X_n)_{0 \leq n \leq N}$ là Markov$(\lambda, P)$.
+\hdn 
+% ------------------------------Định lý 1.3---------------
+% -----------------------------------------------------------
+\dl\label{dl1.3} Dãy bnn $(X_n)_{0\leq n \leq N}$ nhận giá trị trong I là Markov $(\lambda, P)$ khi và chỉ khi với mọi $i_0,...,i_N \in I,$
+\begin{equation}\label{pt11}
+P(X_0 = i_0, X_1=i_1,...,X_N = i_N) = \lambda_{i_0}p_{i_0 i_1}...p_{i_{N-1} i_N}
+\end{equation}
+\cm 
+\begin{enumerate}[a)]
+\item Giả sử $(X_n)_{0\leq n \leq N}$ là Markov$(\lambda, P)$, khi đó\\
+$P(X_0 = i_0, X_1=i_1,...,X_N=i_N)$
+
+$=P(X_0=i_0)P(X_1=i_1 \mid X_0=i_0)...P(X_N=i_N \mid X_0=i_0,...,X_{N-1}=i_{N-1})$
+
+$=\lambda_{i_0}p_{i_0 i_1}...p_{i_{N-1} i_N}.$
+\item Giả sử phương trình $\eqref{pt11}$ được thỏa mãn với N, khi đó lấy tổng hai vế theo tất cả $i_N \in I$ và sử dụng giả thiết $\sum_{\substack{j \in I}} {p_{ij} } = 1$, ta thấy phương trình $\eqref{pt11}$ cũng thỏa mãn với N-1.\\
+Chứng minh bằng quy nạp ta được
+\begin{center}
+$P(X_0=i_0, X_1=i_1,...,X_n=i_n) = \lambda_{i_0}p_{i_0 i_1}p_{i_{n-1}i_n},$
+\end{center}
+với mọi n = 0, 1, ..., N.\\
+Đặc biệt ta có $P(X_0 = i_0)=\lambda_{i_0}$ , $\forall i_0 \in I$ và mỗi n = 0,1,...,N-1,\\
+$P(X_{n+1}=i_{n+1}\mid X_0=i_0,...,X_n=i_n) \\ 
+= \cfrac{P(X_0=i_0,...,X_n=i_n, X_{n+1}=i_{n+1})}{P(X_0=i_0,...,X_n=i_n)} = p_{i_n i_{n+1}},$
+
+do đó $(X_n)$ là Markov$(\lambda, P).$
+\end{enumerate}
+\hdl
+\section{Ma trận chuyển}
+% ------------------------------Định nghĩa ma trận phân phối xác suất chuyển
+\dn
+Ma trận $P=(p_{ij})_{i,j \in I}$ là ma trận phân phối xác suất chuyển(ma trận chuyển) nếu thỏa mãn:
+\begin{center}
+$p_{ij} \geq 0, \forall i, j \in I$ và $\sum_{\substack{j \in I}} {p_{ij} } = 1, \forall i \in I$
+\end{center}
+Sau đây chúng ra sẽ tìm hiểu ma trận chuyển của xích Markov sau như một số hữu hạn bước.
+
+Trước hết, với mỗi phân phối $\lambda$ và ma trận chuyển P, ta coi $\lambda = (\lambda_i)_{i \in I}$ là một vector dòng và $P=(p_{ij})_{i, j \in I}$, k = 1, 2,... mới như sau:
+\begin{center}
+$(\lambda P)_j =\sum_{i \in I}{\lambda_i p_{ij}}; P^1 = P, {p_{ir}}^{(k-1)}p_{rj}, k=2, 3,...$ 
+\end{center}
+Ta qui ước $P^0$ là ma trận đơn vị, tức là $P^0 = (\delta_{ij})_{i, j \in I}$. Bằng qui nạp theo k, ta dễ dàng chứng minh được với mọi $n\geq 1$, mọi $i_0, i_n \in I$,
+\begin{equation}\label{eq:2}
+{p^{(n)}}_{i_0 j_n} = \sum_{i_1 \in I}{...\sum_{i_{n-1} \in I}{p_{i_0 i_1}p_{i_1 i_2}...p_{i_{n-1}i_n}}}.
+\end{equation}
+
+Trong trường hợp $\lambda_i > 0$, ta ký hiệu $P_i(A) = P(A\mid X_0 = i).$ Sử dụng tính chất Markov tại thời điểm m = 0, kết quả dưới đây chỉ ra rằng dưới độ đo xác suất $P_i$ phân phối của $(X_n)_{n \geq 0}$ không phụ thuộc vào phân phối ban đầu $\lambda$.
+\hdn
+
+% ------------------------------Định lý 2.2
+\dl
+Giả sử $(X_n)_{n\geq 0}$ là Markov$(\lambda,P)$. Khi đó, với mọi $n,m \geq 0$, ta có
+\begin{enumerate}[i)]
+\item\label{i} $P(X_n = j) = (\lambda P^n)_j$
+\item $P_i(X_n=j) = P(X_{n+m} = j \mid X_m=j) = {p_{ij}^{(n)}}$
+\end{enumerate}
+\cm
+Áp dụng lần lượt định lý $\eqref{dl1.3}$ và công thức $\eqref{eq:2}$ ta được
+\begin{center}
+$P(X_n = j) = \sum_{i_0 \in I}{...\sum_{i_{n-1} \in I}{P(X_0=i_0,...,X_{n-1}=i_{n-1}, X_n=j)}} = \sum_{i_0 \in I}{...\sum_{i_{n-1}\in I}}{\lambda_{i_0}p_{i_0 i_1} ... p_{i_{n-1}j}} = \sum_{i_0 \in I}{\lambda_{i_0}{p_{i_0 j}}^{(n)}} = (\lambda P^n)_j$
+\end{center}
+Theo tính chất Markov, với điều kiện $X_m = i$, dãy bnn $(X_{m+n})_{n\geq 0}$ là Markov $(\delta_i, P)$, áp dụng $\eqref{i}$ với $\lambda = \delta_i$ ta được điều cần chứng minh.
+
+Theo định lý này, ta sẽ gọi $p_{ij}^{(n)}$ là xác suất chuyển từ trạng thái i sang trạng thái j sau n bước.
+\hdl
+%------------Hệ quả 2.3
+\hq\label{hq2.3}
+Giả sử $(X_n)_{n \geq 0}$ là Markov$(\lambda, P)$ nhận giá trị trong I. với mọi số nguyên $m > k \leq 0$, mọi trạng thái $i, j \in I$ và với mọi biến cố A chỉ phụ thuộc vào $X_0, X_1,...,X_{m-k-1}$, ta có
+\begin{center}
+$P(X_{m+1}=i \mid \{X_{m-k}=j\}\cap A) = P(X_{m+1}=i \mid X{m-k}=j)$.
+\end{center}
+\hhq
+\cm
+Ta chỉ cần chứng tỏ với mọi tập con $B_0,...,B_{m-k-1}$ của I,
+\begin{center}
+$P(X_{m+1}=i \mid X_{m-k}=j, X_{m-k-1} \in B_{m-k-1}, ...,X_0 \in B_0) = P(X_{m+1}=i \mid X{m-k}=j)$.
+\end{center}
+Áp dụng $\eqref{dl1.3}$ ta được
+\begin{align*} 
+&P(X_{m+1}=i \mid X_{m-k}=j, X_{m-k-1}=i_{m-k-1}, ...,X_0 =i_0)\\
+&= \sum_{i_{m-k+1},...,i_m \in I}{\scriptstyle P(X_{m+1}=i, X_m=i_m, X_{m-k+1}= i_{m-k+1}, X_{m-k-1}= i_{m-k-1},...,X_0=i_0)}\\
+&=\sum_{i_{m-k+1},...,i_m \in I}{\lambda_{i_0}p_{i_0 i_1}...p_{i_{m-k-1}j}p_{ji_{m-k+1}}p_{i_m i}}\\
+&=\lambda_{i_0}p_{i_0 i_1}...p_{i_{m-k-1}j} \sum_{i_{m-k+1},...,i_m \in I}{p_{ji_{m-k+1}}...p_{i_m i}}\\
+&= \lambda_{i_0}p_{i_0 i_1}...p_{i_{m-k-1}j}{p_{ij}^{(k+1)}}
+\end{align*}
+trong đó đẳng thức cuối cùng suy ra từ công thức $\eqref{eq:2}$. Do đó
+\begin{align*}
+&P(X_{m+1}=i \mid X_{m-k}=j, X_{m-k-1} \in B_{m-k-1}, ...,X_0 \in B_0)\\ 
+&=\cfrac{\sum_{i_{m-k-1}\in B_{m-k-1}}{...\sum_{i_0 \in B_0}{\scriptstyle P(X_{m+1}=i, X_{m-k}=j, X_{m-k-1}=i_{m-k-1},...,X_0 = i_0)}}}{\sum_{i_{m-k-1}\in B_{m-k-1}}{...\sum_{i_0 \in B_0}{\scriptstyle P(X_{m-k}=j, X_{m-k-1}=i_{m-k-1},...,X_0 = i_0)}}}\\
+&=\cfrac{\sum_{i_{m-k-1}\in B_{m-k-1}}{...\sum_{i_0 \in B_0}{\lambda_{i_0}p_{i_0 i_1}...p_{i_{m-k-1}}{p_{ij}}^{(k+1)}}}}{\sum_{i_{m-k-1}\in B_{m-k-1}}{...\sum_{i_0 \in B_0}{\lambda_{i_0}p_{i_0 i_1}...p_{i_{m-k-1}}{p_{i_{m-k-1}j}}}}}\\
+& = {p_{ij}}^{(k+1)}=P(X_{m+1}=i \mid X_{m-k}=j)
+\end{align*}
+Ta được điều phải chứng minh.
+\hq[Phương trình Chapman - Kolmogorov]
+Với mọi $m,n \geq 0$ và $i, j \in I$, ta có
+\begin{center}
+${p_{ij}}^{(m+n)} = \sum_{r \in I}{{p_{ir}}^{(m)}{p_{rj}}^{(n)}}$
+\end{center}
+\hhq
+\cm
+Theo định nghĩa xác suất có điều kiện, ta có
+\begin{align*}
+{p^{(m+n)}}_{ij}& = \sum_{r \in I}{P(X_{m+n} = j, X_m = r, X_0=i)/P(X_0=j)}\\ 
+& = \sum_{r \in I}{P(X_{m+n} = j, X_m = r, X_0=i)/P(X_m=r, X_0=i)/P(X_0=i)}\\
+&=\sum_{r \in I}{{p^{(m)}}_{ir}{p^{(n)}}_{rj}},
+\end{align*}
+trong đó đẳng thức thứ ba suy ra từ tình Markov và hệ quả $\eqref{hq2.3}$
+\section{Phân lớp trạng thái xích Markov}
+\dn
+Ta nói rằng trạng thái i tới được trạng thái j và ký hiệu là $i \to j $ nếu tồn tại $n\geq 0$ sao cho ${p_{ij}}^{(n)} >  0.$\\
+Hai trạng thái i và j được gọi là liên thông và kí hiệu là $i\leftrightarrow j$ nếu $i \to j $ và $j \to i$.
+\hdn
+
+Ta nói lớp liên thông C là đóng nếu $i \in C , i \to j $ thì $j \in C$. Do đó lớp liên thông C là đóng thì mọi trạng thái đến được từ C đều thuộc C. Trạng thái i được gọi là $\textit{hấp thụ} $ nếu $\left\{i\right\}$ là lớp liên thông đóng.  
+
+\section{Hồi quy}
+\dn
+Giả sử $(X_n)_{n\geq 0}$ là xích Markov với ma trận chuyển P. Ta nói rằng trạng thái $i \in I$ là hồi quy nếu
+\begin{center}
+$P_i(X_n=i$ với vô hạn n)= 1.
+\end{center}
+Trạng thái i là trans nếu
+\begin{center}
+$P_i(X_n=i$ với vô hạn n)= 0.
+\end{center}
+\hdn
+\bd\label{bd1.7.1}
+Với mỗi r = 2, 3, ..., với điều kiện ${T_i}^{(r-1)} < \infty$, bnn ${S_i}^{(r)}$ độc lập với $\{ X_m : m \leq {T_i}^{(r-1)}\}$ và
+\begin{center}
+$P({S_i}^{(r)} = n \mid {T_i}^{(r-1)} < \infty) = P_i(T_i= n).$
+\end{center}
+\hbd
+\cm
+Áp dụng tính Markov mạnh tại thời điểm dừng $T= {T_i}^{(r-1)}$, với điều kiện $T < \infty , (X_{T + n})_{n\geq0}$ là Markov$(\delta_i, P)$ và độc lập với $X_0, X_1, ...,X_T$. Nhưng
+\begin{center}
+${S_i}^{(r)} = inf\{n \geq 1: X_{T+n} = i\}$,
+\end{center}
+do đó ${S_i}^{(r)}$ là thời điểm qua đầu tiên của xích $(X_{T + n})_{n\geq0}$ ở trạng thái i. Với điều kiện ${T_i}^{(r-1)} < \infty, {S_i}^{(r)}$ có cùng phân phối $T_i.$
+
+Kí hiệu $V_i$ là tổng số lần xích ở trạng thái i, tức là
+\begin{center}
+$V_i = \displaystyle\sum_{n=0}^{\infty} I_{X_n=i}.$
+\end{center}
+Và 
+\begin{center}
+$E(v_i) = \displaystyle\sum_{n=0}^{\infty}{P_i(X_n=i)} = \displaystyle\sum_{n=0}^{\infty}{{p_{ij}}^{(n)}}.$
+\end{center}
+Đông thời kí hiệu xác suất trở lại trạng thái i theo độ đo xác suất $P_i$ là
+\begin{center}
+$f_i = P_i(T_i < \infty)$
+\end{center}
+\bd\label{bd1.7.2}
+Với mọi r = 0, 1, ... ta có
+\begin{equation}\label{eq:1.9}
+P_i(v_i > r) = {p_i}^{r}.
+\end{equation}
+\hbd
+\cm
+Dễ thấy đẳng thức $\eqref{eq:1.9}$ đúng với $r=0$. Giả sử đẳng thức đúng với r thì nó cũng đúng với r + 1 vì theo bổ đề $\eqref{bd1.7.1}$ \\
+$P_i(V_i> r+1) = P_i({T_i}^{(r+1)} < \infty) = P_i({T_i}^{r} < \infty, {S_i}^{(r+1)} < \infty).$
+
+\dl\label{dl1.7.3}
+\begin{enumerate}[i)]
+\item Nếu $P_i(T_i < \infty) = 1$ thì trạng thái i là hồi qui và $\displaystyle\sum_{n=0}^{\infty}{{p_{ii}}^{(n)}} = \infty.$
+\item Nếu $P_i(T_i < \infty) <1$ thì i là trạng thái trans và $\displaystyle\sum_{n=0}^{\infty}{{p_{ii}}^{(n)}} < \infty.$
+\end{enumerate}
+\hdl
+\cm
+\begin{enumerate}[i)]
+\item Nếu  $P_i(T_i < \infty) <1$ thì theo $\eqref{bd1.7.2},$
+\[ P_i(V_i=\infty) = \lim_{r\to\infty} {P_i(V_i > r)} = 1\]
+do đó i là trạng thái hồi qui và
+\[\sum_{n=0}^{\infty}{{p_{ii}}^{(n)}} = E_i(V_i) = \infty\]
+\item Nếu $f_i = P_i(T_i < \infty) = 1$ thì theo $\eqref{bd1.7.2},$ 
+\begin{center}
+$\sum_{n=0}^{\infty}{{p_{ii}}^{(n)}} = E_i(V_i) = \sum_{r=0}^{\infty}{P_i(V_i > r)} = \sum_{r=0}^{\infty}{f_i^r}= \cfrac{1}{1-f_i} < \infty,$
+\end{center} 
+do đó $P_i(V_i < \infty)=0$ và i là trans.
+\end{enumerate}
+
+
+\dl\label{dl1.7.4}
+	Giả sử C là một lớp liên thông. Khi đó tất cả các 		trạng thái của C đều là hồi quy hoặc đều là trans.
+\hdl
+\cm
+	Lấy hai trạng thái khác nhau i, j thuộc C và giả sử rằng i là trans. Tồn tại m, n sao cho $p_{ij}^{(n)} > 0$ và $p_{ij}^{(m)} > 0$ và với mọi $r \geq 0$.\\
+	\begin{center}
+	$p_{ii}^{(n+r+m)} \geq p_{ij}^{(n)}p_{jj}^{(r)}p_{ji}^{(m)}$ \\
+	\end{center}
+	
+	Do đó
+	\begin{center}
+	 $\displaystyle\sum_{r=0}^{\infty}{{p_{jj}}^{(n)}} \leq \frac{1}{p_{ij}^{(n)}p_{jj}^{(m)}} \displaystyle\sum_{r=0}^{\infty}{{p_{ii}}^{(n + r + m)}} < \infty$,
+	\end{center}
+	 
+	  
+	  Theo Định lý $\ref{dl1.7.3}$. Do đó j là trans theo Định lý $\ref{dl1.7.3}$.
+\dpcm
+\\
+
+
+
+\dl\label{dl1.7.5}
+	Mọi lớp hồi quy và liên thông đều là đóng.
+\hdl
+	
+\cm
+	Giả sử C là một lớp không đóng. Khi đó tồn tại $i \in C$, $ j \notin C $ và $ m \geq 1 $ sao cho
+	\begin{center}
+		$P_{i}(X_{m} = j) > 0$
+	\end{center}
+	Do
+	\begin{center} 
+	$ P_{i}(\left\{{X_{m} = j}\right\} \cap \left\{{X_{n} = i\ \text{với vô hạn n}}\right\}) = 0 $
+	\end{center}
+	
+	ta có
+	\begin{center}
+		$ P_{i}({X_{n} = i\ \text{với vô hạn n}}) < 1 $
+	\end{center}
+	do đó i không phải là trạng thái hồi quy do đó C cũng không phải tập hồi quy.
+\dpcm
+
+
+
+
+\dl\label{dl1.7.6}
+	Mọi lớp đóng gồm hữu hạn phần tử đều là hồi quy.
+\hdl
+\cm
+	Giả sử lớp C đóng và chỉ gồm hữu hạn phần tử. Giả sử xích $ (X_{n})_{n \geq 0} $ xuất phát từ C. Khi đó, tồn tại ít nhất moojt trạng thái $ i \in C $ sao cho $ X_{n} $ ở trạng thái i vô hnaj lần, tức là 
+	\begin{center}
+		$  0 < P(X_{n} = i \ \text{ với vô hạn n }) \newline
+= P(X_{n} = i \ \text{ với n nào đó }) P_{i}(X_{n} = i \ \text{ với vô hạn n }) $
+	\end{center}
+	trong đó đẳng thức cuối cùng là do tính Markov mạnh. Do vậy trạng thái i không là trans, tức là i là hồi quy và do đó C cũng là hồi quy.
+\dpcm
+
+
+
+
+
+
+
+
+\dl\label{dl1.7.7}
+Giả sử ma trận chuyển P là tối giản và hồi qui. Khi đó, với mọi $j \in I$, ta có $P(T_j < \infty) = 1.$
+\hdl
+\cm
+Áp dụng công thức xác suất toàn phần, ta có
+\begin{center}
+$P(T_j < \infty) = \sum_{i\in I}{P(X_0 = i)P_i(T_j < \infty)},$
+\end{center}
+do đó ta chỉ cần chứng minh $P_i(T_j < \infty) = 1,\forall i \in I.$ Do xích là tối giản nên tồn tại m sao cho ${p_{ji}}^{(m)} > 0.$ Theo định lý $\eqref{dl1.7.3}$ ta có
+\begin{align*} 
+1 &=  P_j(X_n = j \,\text{với vô hạn n}) = P_j(X_n = j \,\text{với} n \leq m+1 \,\text{nào đó})\\
+&=\sum_{k \in I}{P_j(X_n=j \,\text{với} n \leq m+1 \,\text{nào đó} \mid X_m = k)P_j(X_m=k)}\\
+&=\sum_{k \in I}{P_k(T_j < \infty){p_{jk}}^{(m)}} \\
+&= 1 + \sum_{k\in I}{(P_k(T_j < \infty)-1){p_{jk}}^{(m)}}
+\end{align*}
+Do đó $(P_k(T_j < \infty)-1){p_{jk}}^{(m)} = 0$ với mọi $k \in I$. Mà ${p_{jk}}^{(m)} >0 $ nên suy ra $P_i(T_j < \infty) = 1.$
+
+
+
+
+
+
+
+

@@ -1,0 +1,122 @@
+
+\documentclass[12pt,a4paper]{report}
+
+\usepackage[top=3.5cm, bottom=2cm, left=3.5cm, right=2cm] {geometry}
+\usepackage{amsmath,amsxtra,amssymb,latexsym, amscd,amsthm}
+\usepackage{amsmath}
+\usepackage[mathscr]{eucal}
+\usepackage{amsfonts}
+\usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usepackage{verbatim}
+\usepackage[utf8]{vietnam}
+\usepackage{indentfirst}                 			% thụt đầu dòng khi sang đoạn mới
+\usepackage{color}
+\usepackage{graphics}
+\usepackage[unicode]{hyperref}    			%Tạo link trong mục lục 
+\usepackage{enumerate}               			%Chủ động đánh chỉ mục 1) hoặc tự định nghĩa
+\usepackage{cases}                      			% Đánh số biểu thức ở cuối
+\usepackage{fancyhdr}	                			%Liên quan đến  header and footer
+\usepackage{listings}
+\lstset{ % General setup for the package
+	language=Pascal,
+	basicstyle=\small\sffamily,
+	numbers=left,
+ 	numberstyle=\tiny,
+	frame=tb,
+	tabsize=4,
+	columns=fixed,
+	showstringspaces=false,
+	showtabs=false,
+	keepspaces,
+	commentstyle=\color{red},
+	keywordstyle=\color{blue},
+	breaklines=true
+}
+
+
+
+
+\pagestyle{fancy}
+\renewcommand{\baselinestretch}{1.5}		%Cách dòng 1.5
+\newcommand{\dstc}[2]            				%%%%  đánh số thủ công với cấu trúc  \dstc{bthuc1} {1,2,3}
+{
+\newdimen\stringwidth\setbox0=\hbox{#1}
+\stringwidth=\wd0
+\hspace*{-\parindent}\hspace*{.5\textwidth}\hspace*{-.5\wd0}#1\hfill #2\bigskip
+}
+\newcommand{\cm}{\noindent{\bf Chứng minh. }} 		
+\newcommand{\dpcm}{ \hfill \rule{2mm}{2mm}}
+\newcounter{dsdn}[section] 											
+\newenvironment{dskm}{\stepcounter{dsdn}\par\noindent{\bfseries Định nghĩa \thesection.\thedsdn. }}{\par}
+\newcommand{\dn}{\begin{dskm}}
+\newcommand{\hdn}{\end{dskm}}
+\newcounter{dsvd}[section] 											
+\newenvironment{dsvdd}{\stepcounter{dsvd}\par\noindent{\bfseries Ví dụ \thesection.\thedsvd. }}{\par}
+\newcommand{\vd}{\begin{dsvdd}}
+\newcommand{\hvd}{\end{dsvdd}}
+\newtheorem{btdl}{Định lý}[section]   							
+\newcommand{\dl}{\begin{btdl}}
+\newcommand{\hdl}{\end{btdl}}
+
+\newtheorem{btbd}{Bổ đề}[section]
+\newcommand{\bd}{\begin{btbd}}
+\newcommand{\hbd}{\end{btbd}}
+
+\newtheorem{btmd}{Mệnh đề}[section]
+\newcommand{\md}{\begin{btmd}}
+\newcommand{\hmd}{\end{btmd}}
+
+\newtheorem{bthq}{Hệ quả}[section]
+\newcommand{\hq}{\begin{bthq}}
+\newcommand{\hhq}{\end{bthq}}
+
+\newtheorem{btnx}{Nhận xét}[section]
+\newcommand{\nx}{\begin{btnx}}
+\newcommand{\hnx}{\end{btnx}}
+
+\allowdisplaybreaks    												
+
+\begin{document}
+
+\large
+
+\fancyhf{}                     											
+\lhead{}                       												
+\chead{\thepage}
+\rhead{}
+\cfoot{}
+\rfoot{}
+\lfoot{}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\thispagestyle{fancy}
+
+\pagenumbering{roman}            								
+\newpage
+
+\input BiaBaoCao
+\newpage
+\input LoiNoiDau
+\newpage
+\addcontentsline{toc}{section}{{Mục lục\rm }}
+\tableofcontents         												%Tạo mục lục
+
+\newpage
+\pagenumbering{arabic} 
+\clearpage       		 							%Cách đánh số trang theo 1,2,3....
+\setcounter{page}{3}                  								% Bắt đầu đánh số trang từ trang thứ 3
+
+\newpage
+\input CoSoLyThuyet   
+
+\input MoPhongThuatGiai
+
+\newpage
+\input KetLuan
+
+\newpage
+\input TaiLieuThamKhao
+\end{document}
