@@ -268,32 +268,110 @@ namespace DrawDiagramStatus
         /// <param name="checkList"></param>
         /// <returns></returns>
 
-        public bool IsNodeReturn(int p, double[,] inputmatrix)
+        public bool IsClassReturn(List<int> list, double[,] inputmatrix)
         {
+            List<int> dsState = new List<int>();
+            List<int> lstConLai = new List<int>();
+            
             for (int i = 0; i < inputmatrix.GetLength(0); i++)
             {
-                if (mConnectedNodes[i, p] == false)
-                    return false;
+                dsState.Add(i);
             }
+            lstConLai = dsState;
+            foreach (int p in list)
+            {
+                lstConLai.Remove(p);
+            }
+                foreach (int p in list)
+                {
+                    foreach(int k in lstConLai)
+                    {
+                        if (mConnectedNodes[p, k] == true)
+                            return false;
+                    }
+                }
             return true;
         }
 
         public string DsPhanLoaiTrangThai(double[,] inputMatrix)
         {
 
+            //string result = "";
+            //List<int> dsTrangThaiHoiQuy = new List<int>();
+            //List<int> dsTrangThaiKoHoiQuy = new List<int>();
+            //for (int i = 0; i < inputMatrix.GetLength(0); i++)
+            //{
+            //    if (IsNodeReturn(i, inputMatrix) == true)
+            //        dsTrangThaiHoiQuy.Add(i);
+            //    else
+            //        dsTrangThaiKoHoiQuy.Add(i);
+            //}
+            //result += "Danh sách trạng thái hồi quy: " + PrintList(dsTrangThaiHoiQuy) + "\n" +
+            //            "Danh sách trạng thái không hồi quy: " + PrintList(dsTrangThaiKoHoiQuy);
+            //return result;
+            List<int> list;
+            List<int> LstDaDuyet = new List<int>();
             string result = "";
-            List<int> dsTrangThaiHoiQuy=new List<int>();
-            List<int> dsTrangThaiKoHoiQuy=new List<int>();
-            for (int i = 0; i < inputMatrix.GetLength(0); i++)
+            for (int a = 0; a < inputMatrix.GetLength(0); a++)
             {
-                if (IsNodeReturn(i, inputMatrix) == true)
-                    dsTrangThaiHoiQuy.Add(i);
+
+                list = new List<int>();
+                #region if else
+                if (LstDaDuyet.Count == 0)
+                {
+                    list.Add(a);
+                    LstDaDuyet.Add(a);
+                    for (int b = 0; b < inputMatrix.GetLength(1); b++)
+                    {
+                        if (IsConnected(a, b) == true && a != b)
+                        {
+
+                            list.Add(b);
+                            LstDaDuyet.Add(b);
+                        }
+                        // if 
+                    }
+                }
                 else
-                    dsTrangThaiKoHoiQuy.Add(i);
+                {
+                    if (isExistInList(a, LstDaDuyet) == false)
+                    {
+                        list.Add(a);
+                        LstDaDuyet.Add(a);
+                        for (int b = 0; b < inputMatrix.GetLength(1); b++)
+                        {
+                            if (IsConnected(a, b) == true && a != b)
+                            {
+
+                                list.Add(b);
+                                LstDaDuyet.Add(b);
+                            }
+                            // if 
+                        }
+                    }
+
+                }
+                #endregion
+                //DS.Add(list);
+                if (list.Count == 0)
+                {
+                    result += "";
+                    //result += "Trạng thái không hồi quy: " + PrintList(list) + ";";
+                }
+                if (list.Count > 0 && IsClassReturn(list, mMatrix) == false)
+                {
+                    result += "Trạng thái không hồi quy: " + PrintList(list) + ";\n";
+                }
+                if (list.Count > 0 && IsClassReturn(list, mMatrix) == true)
+                {
+                    result += "Trạng thái hồi quy: " + PrintList(list) + ";\n";
+                }
+                else
+                {
+                    result += "";
+                }
             }
-            result += "Danh sách trạng thái hồi quy: " + PrintList(dsTrangThaiHoiQuy) +"\n" +
-                        "Danh sách trạng thái không hồi quy: " + PrintList(dsTrangThaiKoHoiQuy);
-                return result;
+            return result;
         }
     }
 }
